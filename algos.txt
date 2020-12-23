@@ -1,0 +1,112 @@
+-> Example1: Given an array of distinct integer values, count the number of pairs of integers that
+have difference k. For example, given the array { 1, 7, 5, 9, 2, 12, 3} and the difference
+k = 2,there are four pairs with difference2: (1, 3), (3, 5), (5, 7), (7, 9).
+
+Sol: Throw eveything in the array into the hash table. Then, to lookup if x+k or x-k exist in the array, we just look it up in hash table o(N)
+
+-> Example2: Print all positive integer solutions to the equation a3 + b3 = c3 + d3 where a,b,c and d are integers between 1 and 1000.
+
+Hint: Optimize & Solve Technique #1: Look for BUD
+
+Sol:  
+   1) iterate 4 loops, then check for the equation O(n4)
+   
+   
+   2)   if a3 + b3 == c3 + d3
+		 print a, b, c, d
+		 break// break out of d's loop
+		 o(n4)
+		 
+    3)  after 3 for loops
+	    d = pow(a3 + b3 -c3, 1/3)		 
+		o(n3)
+		
+    4)	Actually, once we have the map of all the ( c, d) pairs, we can just use that directly. We don't need to
+generate the (a, b) pairs. Each (a, b) will already be in the map.
+1 n = 1000
+2 for c from 1 to n
+3 ford from 1 to n
+4 result = c3 + d3
+5 append (c, d) to list at value map[result]
+6
+7 for each result, list in map
+8 for each pairl in list
+9 for each pair2 in list
+10 print pairl, pair2
+This will take our runtime to O(N2).
+		 
+-> Example3: Given a smaller strings and a bigger string b, design an algorithm to find all permutations
+of the shorter string within the longer one. Print the location of each permutation
+
+Hint: Optimize & Solve Technique #2: DIY (Do It Yourself)
+
+Sol:
+s: abbc
+b: cbabadcbbabbcbabaabccbabc
+Few people-even those who earlier came up with the 0(5 ! * B) algorithm-actually generate all the
+permutations of abbc to locate those permutations in b. Almost everyone takes one of two (very similar)
+approaches:
+1. Walk through b and look at sliding windows of 4 characters (since s has length 4). Check if each window
+is a permutation of s.
+2. Walk through b. Every time you see a character in s, check if the next four (the length of s) characters
+are a permutation of s.
+Depending on the exact implementation of the "is this a permutation" part, you'll probably get a runtime of
+eitherO(B * S),O(B *Slog S),orO(B * 52).None of these are the most optimal algorithm(there
+is an 0( B) algorithm), but it's a lot better than what we had before.
+
+-> Example4: A ransom note can be formed by cutting words out of a magazine to form a new
+sentence. How would you figure out if a ransom note (represented as a string) can be formed
+from a given magazine (string)?
+
+Hint: Optimize & Solve Technique #3: Simplify and Generalize
+
+Sol: To simplify the problem, we can modify it so that we are cutting characters out of a magazine instead of
+whole words.
+We can solve the simplified ransom note problem with characters by simply creating an array and counting
+the characters. Each spot in the array corresponds to one letter. First, we count the number of times each
+character in the ransom note appears, and then we go through the magazine to see if we have all of those
+characters.
+When we generalize the algorithm, we do a very similar thing. This time, rather than creating an array with
+character counts, we create a hash table that maps from a word to its frequency.
+
+
+-> Example5: Design an algorithm to print all permutations of a string. For simplicity, assume all characters
+are unique.
+
+Hint: Optimize & Solve Technique #4: Base Case and Build (Base Case and Build algorithms often lead to natural recursive algorithms)
+
+Sol:
+Case "a" --> {"a"}
+Case "ab" - -> {"ab", "ba"}
+Case "abc" --> ?
+
+P("abc") = insert "c" into all locations of all strings in P("ab")
+P("abc") = insert "c" into all locations of all strings in {"ab","ba"}
+P("abc") = merge({"cab", ""acb", "abc"}, {"cba", abca", bac"})
+P("abc") = {"cab", "acb", "abc", "cba", "bca", bac"}
+
+Now that we understand the pattern, we can develop a general recursive algorithn1:We generate all permutations
+of a string s1• • • sn by "chopping off" the last character and generating all permutations of s1• • • sn _1. Once we have the list of all permutations of s1• • • sn_1, we iterate through this list. For each string in it,we insert Sn into every location of the string.
+
+-> Example6: Numbers are randomly generated and stored into an (expanding) array. How would you keep track of the median?
+
+Hint: Optimize & Solve Technique #5: Data Structure Brainstorm
+
+Sol:
+1. Linked list not well with accessing and sorting numbers
+2. Array , may be but you already have an array. Could you somehow keep the elements sorted? That is expensive
+3. Binary tree, This is ok. since binary trees fairly do well with ordering. In fact, the top might be the meridian if the bst is perfectly balanced. But if there are even number of elements, the median will be the average of the middle two elements. The middle two elements can't both at the top. this is probably wrong algorithm, but let's come back to it
+4. Heap, A heap is really good at basic ordering and keeping track of max and mins. This is actually
+interesting-if you had two heaps, you could keep track of the bigger half and the smaller half of the
+elements. The bigger half is kept in a min heap, such that the smallest element in the bigger half is at
+the root. The smaller half is kept in a max heap, such that the biggest element of the smaller half is at the
+root. Now, with these data structures, you have the potential median elements at the roots. If the heaps
+are no longer the same size, you can quickly "rebalance" the heaps by popping an element off the one
+heap and pushing it onto the other.
+
+
+-> Example7, suppose you want to compute the number of elements that two arrays (of length A and B)
+have in common. You immediately know that you can't do that in better than O ( A + B) time because you
+have to "touch" each element in each array. O(A + B) is the BCR.
+
+

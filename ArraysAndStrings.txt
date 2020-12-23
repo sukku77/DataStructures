@@ -1,0 +1,35 @@
+HashTable:
+ - Efficient for lookup
+ - There are two implementations
+
+- HashTable implementations for lookup an element:
+ 1. Array of Linked list
+ sol: Search an element in hash table or lookup time
+	a. Generate a hashcode for key and map to array index of size 5
+	    hash(key) % array.length = modulo numbers [0...5]
+		arrry[0] -> Linked list ["hi", "abc"]  (To avoid collisions)
+	Note: O(N) worst complexity (when all are collisioned)
+	      O(1) best (when number of collisons are zero)
+		  
+ 2. Balanced Binary search tree	= O(N)
+   Note: Less space (As there is no array). Iterating through the keys in order is useful sometimes
+   
+ArrayList:
+ - Dynamic Re-sizing unlike array
+ - Re-sizing factor is 2 in java
+
+- ArrayList implementation:
+sol: It is an array that resizes itself as needed. When array is full, the array doubles  in size. Each doubling   takes O(N) time, but happens so rarely that its amortized insertion time is still O(1) 
+   Note: Inserting N elements takes O(N). Each insertion is O(1) on average, even though some insertions take O(N) time in worst case
+   
+String and StringBuilder:
+  - Each time append a string , it copies both and create new O(N2)
+  - StringBuilder avoid this problems by creating resizable array  of all strings, copy them back to string only when needed
+  
+Note: Additional Reading: Hash Table Collision Resolution (pg 636), Rabin-Karp Substring Search (pg 636)
+
+  
+Excerise 1: Bit Vector
+  
+  
+  
